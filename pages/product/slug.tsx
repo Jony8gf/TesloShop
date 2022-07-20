@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Grid, Typography } from '@mui/material';
 import React from 'react'
 import { ShopLayout } from '../../components/layout'
-import { ProductSlideShow } from '../../components/products';
+import { ProductSizeSelector, ProductSlideShow } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
 import { initialData } from '../../database/products'
 
@@ -26,6 +26,10 @@ export const ProductPage = () => {
               <Typography variant='subtitle2' component='h2'>Cantidad</Typography>
               {/* Item Counter */}
               <ItemCounter />
+              <ProductSizeSelector 
+                //Opcional Selected Size
+                // selectedSize={product.sizes[0]} 
+                sizes={product.sizes} />
             </Box>
 
             {/* Agregar al carrito */}
