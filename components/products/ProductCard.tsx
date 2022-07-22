@@ -29,7 +29,7 @@ export const ProductCard:FC<Props> = ({product}) => {
                             <CardMedia
                                 className='fadeIn'
                                 component='img'
-                                image={`products/${ !isHovered ? product.images[0] : product.images[1]}`}
+                                image={`/products/${ !isHovered ? product.images[0] : product.images[1]}`}
                                 alt={product.title}
                             />
                         </CardActionArea>
