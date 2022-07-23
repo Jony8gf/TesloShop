@@ -32,7 +32,10 @@ const productSchema = new Schema({
     }
 },{
     timestamps: true
-})
+});
+
+
+productSchema.index({title: 'text', tags: 'text'});
 
 const ProductModel: Model<IProduct> = mongoose.models.Product || mongoose.model('Product', productSchema);
 
