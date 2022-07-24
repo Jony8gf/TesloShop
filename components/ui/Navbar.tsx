@@ -1,9 +1,13 @@
 import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
 import { AppBar, Badge, Box, Button, IconButton, Link, Toolbar, Typography } from '@mui/material'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 export const Navbar = () => {
+
+    const {asPath} = useRouter();
+
     return (
         <AppBar>
             <Toolbar>
@@ -19,19 +23,19 @@ export const Navbar = () => {
                 <Box sx={{display: {xs: 'none', sm:'block'}}}>
                     <NextLink href="/category/men">
                         <Link>
-                            <Button>Hombres:</Button>
+                            <Button className={ asPath === '/category/men' ? 'checked-button' : 'inherit'}>Hombres:</Button>
                         </Link>
                     </NextLink>
 
-                    <NextLink href="/category/woman">
+                    <NextLink href="/category/women">
                         <Link>
-                            <Button>Mujeres:</Button>
+                            <Button className={ asPath === '/category/women' ? 'checked-button' : 'inherit'}>Mujeres:</Button>
                         </Link>
                     </NextLink>
 
                     <NextLink href="/category/kid">
                         <Link>
-                            <Button>Niños:</Button>
+                            <Button className={ asPath === '/category/kid' ? 'checked-button' : 'no-checked-button'}>Niños:</Button>
                         </Link>
                     </NextLink>
                 </Box>

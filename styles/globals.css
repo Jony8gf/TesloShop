@@ -42,3 +42,25 @@
 .talla-no-elegida{
   margin: 0;
 }
+
+.checked-button{
+  background-color: black;
+  color: white;
+}
+
+.checked-button:hover{
+  background-color: black;
+  color: white;
+}
+
+.no-checked-button{
+  background-color: white;
+  color: black;
+}
+
+.no-checked-button:hover{
+  background-color: transparent;
+  color: black;
+}
+
+

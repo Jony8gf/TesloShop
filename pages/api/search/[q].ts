@@ -25,7 +25,7 @@ const searchProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) =
     }
 
     q = q.toString().toLowerCase();
-
+    
     await db.connect();
     const products = await Product.find({
         $text: { $search: q }
