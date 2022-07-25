@@ -1,12 +1,24 @@
-import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
-import { AppBar, Badge, Box, Button, IconButton, Link, Toolbar, Typography } from '@mui/material'
+import { ClearOutlined, SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
+import { AppBar, Badge, Box, Button, IconButton, Input, InputAdornment, Link, Toolbar, Typography } from '@mui/material'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { UIContext } from '../../context'
 
 export const Navbar = () => {
 
-    const {asPath} = useRouter();
+    const {asPath, push} = useRouter();
+
+    const {toggleSideMenu} = useContext(UIContext);
+
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+    const onSearchTerm = () => {
+        if( searchTerm.trim().length === 0 ) return;
+        push(`/search/${ searchTerm }`);
+    }
 
     return (
         <AppBar>
@@ -20,7 +32,7 @@ export const Navbar = () => {
 
                 <Box flex={1} />
 
-                <Box sx={{display: {xs: 'none', sm:'block'}}}>
+                <Box sx={{display: isSearchVisible ? 'none' : {xs: 'none', sm:'block'}}}>
                     <NextLink href="/category/men">
                         <Link>
                             <Button className={ asPath === '/category/men' ? 'checked-button' : 'inherit'}>Hombres:</Button>
@@ -43,7 +55,42 @@ export const Navbar = () => {
 
                 <Box flex={1} />
 
-                <IconButton >
+                {/* //Pantallas Grandes */}     
+                {
+                    isSearchVisible
+                      ? <Input
+                            sx={{display: {xs: 'none', sm:'flex'}}}
+                            autoFocus
+                            value={ searchTerm }
+                            onChange={ (e) => setSearchTerm( e.target.value ) }
+                            onKeyPress={ (e) => e.key === 'Enter' ? onSearchTerm() : null }
+                            type='text'
+                            placeholder="Buscar..."
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={ () => setIsSearchVisible(false)}
+                                    >
+                                    <ClearOutlined />
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+
+                    : 
+                    <IconButton 
+                        onClick={ () => setIsSearchVisible(true)}
+                    >
+                        <SearchOutlined />
+                    </IconButton>
+                }
+                
+
+                {/* //Pantallas pequñas */}               
+                <IconButton 
+                    sx={{display: {xs: 'flex', sm: 'none'}}}
+                    onClick={toggleSideMenu}
+                >
                     <SearchOutlined />
                 </IconButton>
 
@@ -57,7 +104,7 @@ export const Navbar = () => {
                     </Link>
                 </NextLink>
 
-                <Button>
+                <Button onClick={toggleSideMenu}>
                     Menu
                 </Button>
 

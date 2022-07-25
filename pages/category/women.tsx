@@ -13,8 +13,6 @@ const WomenPage: NextPage = () => {
   if (isError) return <div>failed to load</div>
   if (!products) return <FullScreenLoading />
 
-  console.log(products)
-
   return (
     <ShopLayout title={'TesloShop - Women'} pageDescription={'Encuentra los mejores de Teslo para mujeres'}>
       

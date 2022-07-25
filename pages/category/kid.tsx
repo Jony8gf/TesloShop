@@ -13,8 +13,6 @@ const KidPage: NextPage = () => {
   if (isError) return <div>failed to load</div>
   if (!products) return <FullScreenLoading />
 
-  console.log(products)
-
   return (
     <ShopLayout title={'TesloShop - Kids'} pageDescription={'Encuentra los mejores de Teslo para niños'}>
       
