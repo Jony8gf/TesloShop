@@ -1,14 +1,14 @@
-import React, { FC } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { GetServerSideProps, NextPage, GetStaticPaths, GetStaticProps } from 'next'
 import { Box, Button, Chip, Grid, Typography } from '@mui/material';
 import { ShopLayout } from '../../components/layout'
 import { ProductSizeSelector, ProductSlideShow } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
 import { initialData } from '../../database/products'
-import { IProduct } from '../../interfaces';
+import { ICartProduct, IProduct, ISize } from '../../interfaces';
 import { dbProducts } from '../../database';
-
-// const product = initialData.products[0];
+import { useRouter } from 'next/router';
+import { CartContext } from '../../context';
 
 interface Props{
   product: IProduct;
@@ -16,13 +16,40 @@ interface Props{
 
 export const ProductPage:NextPage<Props> = ({product}) => {
 
-  // const router = useRouter();
+  const router = useRouter();
+  const { addProductToCart } = useContext( CartContext );
 
-  // const {products: product, isLoading} = useProducts(`/products/${router.query.slug}`);
+  const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
+    _id: product._id,
+    image: product.images[0],
+    price: product.price,
+    size: undefined,
+    slug: product.slug,
+    title: product.title,
+    gender: product.gender,
+    quantity: 1
+  });  
 
-  // if(isLoading) return <FullScreenLoading />
+  const selectedSize = (size: ISize) => {
+      setTempCartProduct(currentProduct => ({
+        ...currentProduct,
+        size
+      }))
+  }
 
-  // if(!product) return <h1>No existe el elemento buscado</h1>
+  const onUpdateQuantity = (quantity: number) => {
+    setTempCartProduct(currentProduct => ({
+      ...currentProduct,
+      quantity
+    }))
+  }
+
+  const onAddProduct = () => {
+    if ( !tempCartProduct.size ) { return; }
+
+    addProductToCart(tempCartProduct);
+    router.push('/cart');
+  }
 
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
@@ -41,19 +68,30 @@ export const ProductPage:NextPage<Props> = ({product}) => {
             <Box sx={{my:2}}>
               <Typography variant='subtitle2' component='h2'>Cantidad</Typography>
               {/* Item Counter */}
-              <ItemCounter />
+              <ItemCounter 
+                currentValue={tempCartProduct.quantity}
+                updateQuantity={onUpdateQuantity}
+                maxValue={ product.inStock}
+              />
               <ProductSizeSelector 
                 //Opcional Selected Size
-                // selectedSize={product.sizes[0]} 
-                sizes={product.sizes} />
+                selectedSize={tempCartProduct.size} 
+                sizes={product.sizes}
+                onSelectedSize={(size) => selectedSize(size)} />
             </Box>
 
-            {/* Agregar al carrito */}
-            <Button color='secondary' className='circular-btn'>
-              Agregar al carrito
-            </Button>
-
-            {/* <Chip label="No hay disponibles" color='error' variant='outlined' /> */}
+            {
+              product.inStock > 0
+              ? 
+              <Button color='secondary' className='circular-btn' onClick={onAddProduct}>
+                {
+                  tempCartProduct.size 
+                  ? 'Agregar al carrito'
+                  : 'Seleccionar una talla'
+                }
+              </Button>
+              : <Chip label="No hay stock disponible" color='error' variant='outlined' />
+            }
 
             {/* Descripcion */}
             <Box sx={{mt:3}}>

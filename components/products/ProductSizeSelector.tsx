@@ -6,11 +6,13 @@ import { Button } from '@mui/material';
 interface Props{
     selectedSize?: ISize;
     sizes: ISize[];
+
+
+    //Methods
+    onSelectedSize: (size:ISize) => void;
 }
 
-export const ProductSizeSelector:FC<Props> = ({selectedSize, sizes}) => {
-  
-    
+export const ProductSizeSelector:FC<Props> = ({selectedSize, sizes, onSelectedSize}) => {
   
     return (
     <Box>
@@ -21,7 +23,7 @@ export const ProductSizeSelector:FC<Props> = ({selectedSize, sizes}) => {
                         key={size}
                         size='small'
                         className={selectedSize === size ? 'talla-elegida' : 'talla-no-elegida'}
-
+                        onClick={() => onSelectedSize(size)}
                     >
                         {size}
                     </Button>
