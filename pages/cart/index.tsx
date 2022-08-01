@@ -1,11 +1,16 @@
 import { Box, Button, Card, CardContent, Divider, Grid, Typography } from "@mui/material"
+import { useContext } from "react";
 import { CartList, CartOrderSummary } from "../../components/cart"
 import { ShopLayout } from "../../components/layout"
+import { CartContext } from "../../context";
 
 
 const CartPage = () => {
+
+    const {numberOfItems} = useContext(CartContext);
+    
   return (
-    <ShopLayout title={"Carrito - 3"} pageDescription={"Carrito de compras de la tienda"}>
+    <ShopLayout title={`Carrito - ${numberOfItems} ${numberOfItems > 1 ? 'Productos' : 'Producto'}`} pageDescription={"Carrito de compras de la tienda"}>
         <Typography variant="h1" component='h1'>Carrito</Typography>
     
         <Grid container>

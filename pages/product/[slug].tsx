@@ -4,7 +4,6 @@ import { Box, Button, Chip, Grid, Typography } from '@mui/material';
 import { ShopLayout } from '../../components/layout'
 import { ProductSizeSelector, ProductSlideShow } from '../../components/products';
 import { ItemCounter } from '../../components/ui';
-import { initialData } from '../../database/products'
 import { ICartProduct, IProduct, ISize } from '../../interfaces';
 import { dbProducts } from '../../database';
 import { useRouter } from 'next/router';

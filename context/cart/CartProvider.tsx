@@ -7,10 +7,18 @@ import Cookie from 'js-cookie';
 
 export interface CartState{
     cart: ICartProduct[];
+    numberOfItems: number;
+    subtotal: number;
+    taxRate: number;
+    total: number;
 }
 
 const CART_INITIAL_STATE: CartState = {
     cart: [],
+    numberOfItems: 0,
+    subtotal: 0,
+    taxRate: 0,
+    total: 0
 }
 
 interface Props {
@@ -24,6 +32,22 @@ export const CartProvider:FC<Props> = ({children}) => {
     //Efecto guardar cookies de carrito
     useEffect(() =>{
         Cookie.set('cart', JSON.stringify(state.cart));
+    },[state.cart])
+
+    useEffect(() =>{
+
+        const numberOfItems = state.cart.reduce( (prev, current) => current.quantity + prev, 0);
+        const subtotal = state.cart.reduce( (prev, current) => (current.price * current.quantity) + prev, 0);
+        const taxRate = subtotal * Number(process.env.NEXT_PUBLIC_TAC_RATE || 0.01);
+        const total = subtotal + taxRate;
+
+        const orderSummary = {
+            numberOfItems,
+            subtotal,
+            taxRate,
+            total
+        }
+        dispatch({type: '[Cart] - Update Order summary', payload: orderSummary});
     },[state.cart])
 
     //Efecto recargar carrito
