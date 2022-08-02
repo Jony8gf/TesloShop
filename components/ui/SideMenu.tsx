@@ -105,7 +105,7 @@ export const SideMenu = () => {
                         <ListItemIcon>
                             <VpnKeyOutlined/>
                         </ListItemIcon>
-                        <ListItemText primary={'Ingresar'} />
+                        <ListItemText primary={'Ingresar'} onClick={ () => navigateTo('/auth/login') } />
                     </ListItem>
     
                     <ListItem button>
