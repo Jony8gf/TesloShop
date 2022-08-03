@@ -4,29 +4,35 @@ import { ThemeProvider } from '@emotion/react'
 import { lightTheme } from '../themes'
 import { CssBaseline } from '@mui/material'
 import { SWRConfig } from 'swr'
-import { CartProvider, UiProvider } from '../context'
+import { AuthProvider, CartProvider, UiProvider } from '../context'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return(
+  return (
     <SWRConfig value={{
       // refreshInterval: 3000,
       fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
-      }}
-     >
-      <CartProvider>
+    }}
+    >
+      <AuthProvider>
 
-        <UiProvider>
-          <ThemeProvider theme={lightTheme} >
-            <CssBaseline />
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </UiProvider>
-        
-      </CartProvider>
-      
+        <CartProvider>
+
+          <UiProvider>
+
+            <ThemeProvider theme={lightTheme} >
+              <CssBaseline />
+              <Component {...pageProps} />
+            </ThemeProvider>
+            
+          </UiProvider>
+
+        </CartProvider>
+
+      </AuthProvider>
+
     </SWRConfig>
-    
-  ) 
+
+  )
 }
 
 export default MyApp
