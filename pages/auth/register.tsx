@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import NextLink from 'next/link'
 import { Box, Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
 import { AuthLayout } from '../../components/layout'
@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form'
 import { validations } from '../../utils'
 import { tesloApi } from '../../api'
 import { ErrorOutline } from '@mui/icons-material'
+import { useRouter } from 'next/router'
+import { AuthContext } from '../../context'
 
 type FormData = {
     name: string;
@@ -16,17 +18,16 @@ type FormData = {
 
 const RegisterPage = () => {
 
+    const router = useRouter();
+    const {registerUser} = useContext(AuthContext)
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const [showErrorPassword, setShowErrorPassword] = useState(false);
     const [showErrorEmail, setShowErrorEmail] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
 
     const onRegisterUser = async ({ name, email, password, repeatPassword }: FormData) => {
-
-
-        console.log("Name: " + name);
-        console.log("email: " + email);
-        console.log("password: " + password);
-        console.log("repeatPassword: " + repeatPassword);
 
         setShowErrorPassword(false);
         setShowErrorEmail(false);
@@ -34,15 +35,27 @@ const RegisterPage = () => {
         if(password !== repeatPassword){
             setShowErrorPassword(true);
         }else{
-            try {
-                const { data } = await tesloApi.post('/user/register', { email, password, name });
-                const { token, user } = data;
-                console.log({ token, user });
-    
-            } catch (error) {
-                setShowErrorEmail(true)
-                console.log("El registro requiere datos correctoss");
+
+            const {hasError, message} = await registerUser(name, email, password);
+
+            if(hasError){
+                setShowErrorEmail(true);
+                setErrorMessage(message!);
+                return
             }
+
+            // try {
+            //     const { data } = await tesloApi.post('/user/register', { email, password, name });
+            //     const { token, user } = data;
+            //     console.log({ token, user });
+    
+            // } catch (error) {
+            //     setShowErrorEmail(true)
+            //     console.log("El registro requiere datos correctoss");
+            // }
+
+            router.replace('/');
+            
         } 
     }
 
