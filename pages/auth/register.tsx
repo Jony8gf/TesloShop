@@ -54,7 +54,8 @@ const RegisterPage = () => {
             //     console.log("El registro requiere datos correctoss");
             // }
 
-            router.replace('/');
+            const destino = router.query.p?.toString() || '/'
+            router.replace(destino);
             
         } 
     }
@@ -152,11 +153,14 @@ const RegisterPage = () => {
                                     Registrarse
                                 </Button>
                         </Grid>
-                        <Grid item xs={12}>
-                            <NextLink href="/auth/login" passHref>
-                                <Button color="error" className='circular-btn' size='large' fullWidth>
-                                    Cancelar
-                                </Button>
+                        <Grid item xs={12} display='flex' justifyContent='center'>
+                            <NextLink 
+                                href={ router.query.p ? `/auth/login?p=${router.query.p}` : '/auth/login'} 
+                                passHref
+                            >
+                                <Link underline='always'>
+                                        ¿Ya tienes cuenta?
+                                </Link>
                             </NextLink>
                         </Grid>
                     </Grid>

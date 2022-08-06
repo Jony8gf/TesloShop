@@ -8,7 +8,6 @@ import { IProduct } from '../interfaces';
   // })
 
 export const useProducts = (url: string, config: SWRConfiguration = {}) => {
-    console.log(`/api${url}`);
     const { data, error } = useSWR<IProduct[]>(`/api${url}`, config);
     // const { data, error } = useSWR<IProduct[]>(`/api${url}`, fetcher, config);
     return {

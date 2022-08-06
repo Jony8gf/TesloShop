@@ -43,7 +43,8 @@ const LoginPage = () => {
         // }
 
         //Todo: navegar pantalla el usuario estaba sino home
-        router.replace('/');
+        const destino = router.query.p?.toString() || '/'
+        router.replace(destino);
         
     }
 
@@ -105,7 +106,10 @@ const LoginPage = () => {
                                 </Button>
                         </Grid>
                         <Grid item xs={12}>
-                            <NextLink href="/auth/register" passHref>
+                            <NextLink 
+                                href={ router.query.p ? `/auth/register?p=${router.query.p}` : '/auth/register'} 
+                                passHref
+                            >
                                 <Button color="primary" className='circular-btn' size='large' fullWidth>
                                     Registrarse
                                 </Button>
