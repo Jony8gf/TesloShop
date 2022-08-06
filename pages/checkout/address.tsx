@@ -48,7 +48,7 @@ const AddressPage = () => {
         router.push('/checkout/summary');
     }
 
-    let paisDefault = Cookies.get("country");
+    let paisDefault = Cookies.get("country") || countries.countries[0].code;
     paisDefault = paisDefault?.toString();
 
     return (
