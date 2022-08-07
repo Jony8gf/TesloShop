@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
-import { GetServerSideProps } from 'next';
+import React, { useContext, useState } from 'react';
+import { GetServerSideProps, NextPage } from 'next';
 import { ShopLayout } from '../../components/layout';
-import { Box, Button, FormControl, Grid, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Box, Button, FormControl, Grid, MenuItem, TextField, Typography } from '@mui/material';
 import { jwt } from '../../utils';
 import { countries } from '../../utils';
 import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { CartContext } from '../../context';
-import { PanoramaFishEyeSharp } from '@mui/icons-material';
 
 type FormData = {
     firstName: string;
@@ -34,7 +33,11 @@ const getAddressFromCookies = ():FormData => {
     }
 }
 
-const AddressPage = () => {
+interface Props{
+    paisDefault: any;
+  }
+
+const AddressPage:NextPage<Props> =  ({paisDefault}) => {
 
     const router = useRouter();
     const {updateAddress} = useContext(CartContext)
@@ -48,8 +51,7 @@ const AddressPage = () => {
         router.push('/checkout/summary');
     }
 
-    let paisDefault = Cookies.get("country") || countries.countries[0].code;
-    paisDefault = paisDefault?.toString();
+    const [code, setCode] = useState(paisDefault);
 
     return (
         <ShopLayout title={'Dirección'} pageDescription={'Confirmar dirección del destino'}>
@@ -139,11 +141,11 @@ const AddressPage = () => {
                     <Grid item xs={12} sm={6}>
                         <FormControl fullWidth>
                             <TextField
+                                key={code}
                                 select
-                                key={paisDefault}
                                 variant='filled'
                                 label="País"
-                                defaultValue={paisDefault}
+                                defaultValue={code}
                                 {
                                     ...register('country', {
                                         required: 'Este campo es requerido'
@@ -216,9 +218,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         }
     }
 
+    console.log(Cookies.get("country"));
+    console.log(countries.countries.find(x => x.code === Cookies.get("country"))?.code.toString());
+    const paisDefault = countries.countries.find(x => x.code === Cookies.get("country"))?.code.toString() ? countries.countries.find(x => x.code === Cookies.get("country")) : countries.countries[0].code;
+
     return {
         props: {
-
+            paisDefault
         }
     }
 }

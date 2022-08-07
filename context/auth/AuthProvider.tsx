@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { createContext, FC, useEffect, useReducer } from 'react';
+import { useSession, signIn, signOut } from "next-auth/react"
 import { tesloApi } from '../../api';
 import { IUser } from '../../interfaces';
 import { AuthContext, authReducer } from './';
@@ -24,10 +25,21 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
     const [state, dispatch] = useReducer(authReducer, Auth_INITIAL_STATE)
     const router = useRouter();
+    const { data, status } = useSession();
 
     useEffect(() => {
-      checkToken();    
-    }, [])
+      
+        if(status === 'authenticated'){
+            console.log(data?.user);
+            //TODO:  dispatch({type: '[Auth] - Login', payload: data?.user as IUser});
+        }
+
+    }, [data, status])
+    
+
+    // useEffect(() => {
+    //   checkToken();    
+    // }, [])
 
     const checkToken = async() => {
 

@@ -7,7 +7,6 @@ import { useProducts } from '../hooks'
 
 
 const HomePage: NextPage = () => {
- 
   const {products, isError, isLoading} =  useProducts('/products');
 
   if (isError) return <div>failed to load</div>
