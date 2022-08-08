@@ -31,7 +31,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
       
         if(status === 'authenticated'){
             console.log(data?.user);
-            //TODO:  dispatch({type: '[Auth] - Login', payload: data?.user as IUser});
+            dispatch({type: '[Auth] - Login', payload: data?.user as IUser});
         }
 
     }, [data, status])
@@ -97,11 +97,29 @@ export const AuthProvider: FC<Props> = ({ children }) => {
         }
     };
 
+    // const logout = () => {
+    //     Cookies.remove('token');
+    //     //Opcion quitar cookies cart
+    //     Cookies.remove('cart');
+    //     router.reload();
+    // };
+
     const logout = () => {
-        Cookies.remove('token');
+
+        //Cookies.remove('token');
         //Opcion quitar cookies cart
         Cookies.remove('cart');
-        router.reload();
+        Cookies.remove('firstName');
+        Cookies.remove('lastName');
+        Cookies.remove('address');
+        Cookies.remove('address2');
+        Cookies.remove('zip');
+        Cookies.remove('city');
+        Cookies.remove('country');
+        Cookies.remove('phone');
+
+        signOut();
+        //router.reload();
     };
 
 

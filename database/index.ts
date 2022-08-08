@@ -1,9 +1,10 @@
 
-export * as db from './db'
+export * as db from './db';
 
 export * from './constantes';
 
-export * as dbProducts from './dbProducts'
+export * as dbProducts from './dbProducts';
+export * as dbUsers from './dbUsers';
 
 //BD Semilla (De prueba)
-export * as seedDatabase from './seed-data'
+export * as seedDatabase from './seed-data';
