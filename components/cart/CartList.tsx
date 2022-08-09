@@ -16,7 +16,7 @@ export const CartList: FC<Props> = ({ editable = false }) => {
     const {cart, updateCartQuantity, removeProductInCart} = useContext(CartContext);
     const onNewCartQuantityValue = (product: ICartProduct, newQuantityValue: number) =>{
         product.quantity = newQuantityValue;
-        updateCartQuantity(product)
+        updateCartQuantity(product);
     }
 
   return (

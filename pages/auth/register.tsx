@@ -8,6 +8,8 @@ import { tesloApi } from '../../api'
 import { ErrorOutline } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { AuthContext } from '../../context'
+import { getSession, signIn } from 'next-auth/react'
+import { GetServerSideProps } from 'next'
 
 type FormData = {
     name: string;
@@ -54,8 +56,10 @@ const RegisterPage = () => {
             //     console.log("El registro requiere datos correctoss");
             // }
 
-            const destino = router.query.p?.toString() || '/'
-            router.replace(destino);
+            // const destino = router.query.p?.toString() || '/'
+            // router.replace(destino);
+
+            await signIn('credentials', { email, password });
             
         } 
     }
@@ -168,6 +172,27 @@ const RegisterPage = () => {
             </form>
         </AuthLayout>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
+    
+    const session = await getSession({req});
+    const { p = '/' } = query;
+
+    if(session){
+        return {
+            redirect:{
+                destination: p.toString(),
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+            
+        }
+    }
 }
 
 export default RegisterPage
