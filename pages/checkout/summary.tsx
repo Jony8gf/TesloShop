@@ -56,8 +56,8 @@ const SummaryPage = () => {
                         <Typography>{shippingAddress?.lastName}</Typography>
                         <Typography>{shippingAddress?.address} {shippingAddress?.address2}</Typography>
                         <Typography>{shippingAddress?.zip} - {shippingAddress?.city}</Typography>
-                        {/* <Typography>{countries.countries.find(c => c.code === shippingAddress?.country)?.name}</Typography> */}
-                        <Typography>{shippingAddress?.country}</Typography>
+                        <Typography>{countries.countries.find(c => c.code === shippingAddress?.country)?.name}</Typography>
+                        {/* <Typography>{shippingAddress?.country}</Typography> */}
                         <Typography>{shippingAddress?.phone}</Typography>
 
                         <Divider sx={{my:1}}/>
