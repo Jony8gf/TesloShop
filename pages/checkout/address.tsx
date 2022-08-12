@@ -47,7 +47,7 @@ const AddressPage = () => {
             address2: '',
             zip: '',
             city: '',
-            country: countries.countries[0].code,
+            country: ' ',
             phone: '',
         }
     });

@@ -11,7 +11,7 @@ import { countries } from '../../utils'
 
 const SummaryPage = () => {
 
-    const {numberOfItems, shippingAddress} = useContext(CartContext)
+    const {numberOfItems, shippingAddress, createOrder} = useContext(CartContext)
     const router = useRouter();
 
     useEffect(() => {
@@ -19,6 +19,11 @@ const SummaryPage = () => {
         router.push('/checkout/address')
       }
     }, [router])
+
+
+    const onCreateOrder = () => {
+        createOrder();
+    }
     
 
 
@@ -74,7 +79,12 @@ const SummaryPage = () => {
                         <CartOrderSummary />
                         
                         <Box sx={{mt:3}}>
-                            <Button color='secondary' className="circular-btn" fullWidth>Checkout</Button>
+                            <Button 
+                                color='secondary' 
+                                className="circular-btn" 
+                                fullWidth
+                                onClick={onCreateOrder}
+                            >Checkout</Button>
                         </Box>
 
                     </CardContent>
