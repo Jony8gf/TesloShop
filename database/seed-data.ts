@@ -10,7 +10,7 @@ interface SeedProduct {
     tags: string[];
     title: string;
     type: ValidTypes;
-    gender: 'men'|'women'|'kid'|'unisex'
+    gender: 'men'|'woman'|'kid'|'unisex'
 }
 
 interface SeedUser {
@@ -485,7 +485,7 @@ export const initialData: SeedData = {
             gender: 'unisex'
         },
         {
-            description: "The Women's Cropped Puffer Jacket features a uniquely cropped silhouette for the perfect, modern style while on the go during the cozy season ahead. The puffer features subtle silicone injected Tesla logos below the back collar and on the right sleeve, custom matte metal zipper pulls and a soft, fleece lined collar. Made from 87% nylon and 13% polyurethane.",
+            description: "The Woman's Cropped Puffer Jacket features a uniquely cropped silhouette for the perfect, modern style while on the go during the cozy season ahead. The puffer features subtle silicone injected Tesla logos below the back collar and on the right sleeve, custom matte metal zipper pulls and a soft, fleece lined collar. Made from 87% nylon and 13% polyurethane.",
             images: [
                 '1740535-00-A_0_2000.jpg',
                 '1740535-00-A_1.jpg',
@@ -493,14 +493,14 @@ export const initialData: SeedData = {
             inStock: 85,
             price: 225,
             sizes: ['XS','S','M'],
-            slug: "women_cropped_puffer_jacket",
+            slug: "woman_cropped_puffer_jacket",
             type: 'hoodies',
             tags: ['hoodie'],
-            title: "Women's Cropped Puffer Jacket",
-            gender: 'women'
+            title: "Woman's Cropped Puffer Jacket",
+            gender: 'woman'
         },
         {
-            description: "Introducing the Tesla Chill Collection. The Women's Chill Half Zip Cropped Hoodie has a premium, soft fleece exterior and cropped silhouette for comfort in everyday lifestyle. The hoodie features an elastic hem that gathers at the waist, subtle thermoplastic polyurethane Tesla logos along the hood and on the sleeve, a double layer single seam hood and a custom ring zipper pull. Made from 60% cotton and 40% recycled polyester.",
+            description: "Introducing the Tesla Chill Collection. The Woman's Chill Half Zip Cropped Hoodie has a premium, soft fleece exterior and cropped silhouette for comfort in everyday lifestyle. The hoodie features an elastic hem that gathers at the waist, subtle thermoplastic polyurethane Tesla logos along the hood and on the sleeve, a double layer single seam hood and a custom ring zipper pull. Made from 60% cotton and 40% recycled polyester.",
             images: [
                 '1740226-00-A_0_2000.jpg',
                 '1740226-00-A_1.jpg',
@@ -508,14 +508,14 @@ export const initialData: SeedData = {
             inStock: 10,
             price: 130,
             sizes: ['XS','S','M','XXL'],
-            slug: "women_chill_half_zip_cropped_hoodie",
+            slug: "woman_chill_half_zip_cropped_hoodie",
             type: 'hoodies',
             tags: ['hoodie'],
-            title: "Women's Chill Half Zip Cropped Hoodie",
-            gender: 'women'
+            title: "Woman's Chill Half Zip Cropped Hoodie",
+            gender: 'woman'
         },
         {
-            description: "Introducing the Tesla Raven Collection. The Women's Raven Slouchy Crew Sweatshirt has a premium, relaxed silhouette made from a sustainable bamboo cotton blend. The slouchy crew features a subtle thermoplastic polyurethane Tesla wordmark on the left sleeve and a french terry interior for a cozy look and feel in every season. Pair it with your Raven Joggers or favorite on the go fit. Made from 70% bamboo and 30% cotton.",
+            description: "Introducing the Tesla Raven Collection. The Woman's Raven Slouchy Crew Sweatshirt has a premium, relaxed silhouette made from a sustainable bamboo cotton blend. The slouchy crew features a subtle thermoplastic polyurethane Tesla wordmark on the left sleeve and a french terry interior for a cozy look and feel in every season. Pair it with your Raven Joggers or favorite on the go fit. Made from 70% bamboo and 30% cotton.",
             images: [
                 '1740260-00-A_0_2000.jpg',
                 '1740260-00-A_1.jpg',
@@ -523,14 +523,14 @@ export const initialData: SeedData = {
             inStock: 9,
             price: 110,
             sizes: ['XS','S','M','L','XL','XXL'],
-            slug: "women_raven_slouchy_crew_sweatshirt",
+            slug: "woman_raven_slouchy_crew_sweatshirt",
             type: 'hoodies',
             tags: ['hoodie'],
-            title: "Women's Raven Slouchy Crew Sweatshirt",
-            gender: 'women'
+            title: "Woman's Raven Slouchy Crew Sweatshirt",
+            gender: 'woman'
         },
         {
-            description: "Introducing the Tesla Turbine Collection. Designed for style, comfort and everyday lifestyle, the Women's Turbine Cropped Long Sleeve Tee features a subtle, water-based Tesla wordmark across the chest and our T logo below the back collar. The lightweight material is double-dyed, creating a soft, casual style with a cropped silhouette. Made from 50% cotton and 50%",
+            description: "Introducing the Tesla Turbine Collection. Designed for style, comfort and everyday lifestyle, the Woman's Turbine Cropped Long Sleeve Tee features a subtle, water-based Tesla wordmark across the chest and our T logo below the back collar. The lightweight material is double-dyed, creating a soft, casual style with a cropped silhouette. Made from 50% cotton and 50%",
             images: [
                 '1740290-00-A_0_2000.jpg',
                 '1740290-00-A_1.jpg',
@@ -538,14 +538,14 @@ export const initialData: SeedData = {
             inStock: 10,
             price: 45,
             sizes: ['XS','S','M','L','XL','XXL'],
-            slug: "women_turbine_cropped_long_sleeve_tee",
+            slug: "woman_turbine_cropped_long_sleeve_tee",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's Turbine Cropped Long Sleeve Tee",
-            gender: 'women'
+            title: "Woman's Turbine Cropped Long Sleeve Tee",
+            gender: 'woman'
         },
         {
-            description: "ntroducing the Tesla Turbine Collection. Designed for style, comfort and everyday lifestyle, the Women's Turbine Cropped Short Sleeve Tee features a subtle, water-based Tesla wordmark across the chest and our T logo below the back collar. The lightweight material is double-dyed, creating a soft, casual style with a cropped silhouette. Made from 50% cotton and 50% polyester.",
+            description: "ntroducing the Tesla Turbine Collection. Designed for style, comfort and everyday lifestyle, the Woman's Turbine Cropped Short Sleeve Tee features a subtle, water-based Tesla wordmark across the chest and our T logo below the back collar. The lightweight material is double-dyed, creating a soft, casual style with a cropped silhouette. Made from 50% cotton and 50% polyester.",
             images: [
                 '1741441-00-A_0_2000.jpg',
                 '1741441-00-A_1.jpg',
@@ -553,14 +553,14 @@ export const initialData: SeedData = {
             inStock: 0,
             price: 40,
             sizes: ['XS','S'],
-            slug: "women_turbine_cropped_short_sleeve_tee",
+            slug: "woman_turbine_cropped_short_sleeve_tee",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's Turbine Cropped Short Sleeve Tee",
-            gender: 'women'
+            title: "Woman's Turbine Cropped Short Sleeve Tee",
+            gender: 'woman'
         },
         {
-            description: "Designed for style and comfort, the ultrasoft Women's T Logo Short Sleeve Scoop Neck Tee features a tonal 3D silicone-printed T logo on the left chest. Made of 50% Peruvian cotton and 50% Peruvian viscose.",
+            description: "Designed for style and comfort, the ultrasoft Woman's T Logo Short Sleeve Scoop Neck Tee features a tonal 3D silicone-printed T logo on the left chest. Made of 50% Peruvian cotton and 50% Peruvian viscose.",
             images: [
                 '8765090-00-A_0_2000.jpg',
                 '8765090-00-A_1.jpg',
@@ -568,14 +568,14 @@ export const initialData: SeedData = {
             inStock: 30,
             price: 35,
             sizes: ['XS','S','M','L','XL','XXL'],
-            slug: "women_t_logo_short_sleeve_scoop_neck_tee",
+            slug: "woman_t_logo_short_sleeve_scoop_neck_tee",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's T Logo Short Sleeve Scoop Neck Tee",
-            gender: 'women'
+            title: "Woman's T Logo Short Sleeve Scoop Neck Tee",
+            gender: 'woman'
         },
         {
-            description: "Designed for style and comfort, the ultrasoft Women's T Logo Long Sleeve Scoop Neck Tee features a tonal 3D silicone-printed T logo on the left chest. Made of 50% Peruvian cotton and 50% Peruvian viscose.",
+            description: "Designed for style and comfort, the ultrasoft Woman's T Logo Long Sleeve Scoop Neck Tee features a tonal 3D silicone-printed T logo on the left chest. Made of 50% Peruvian cotton and 50% Peruvian viscose.",
             images: [
                 '8765100-00-A_0_2000.jpg',
                 '8765100-00-A_1.jpg',
@@ -583,14 +583,14 @@ export const initialData: SeedData = {
             inStock: 16,
             price: 40,
             sizes: ['XS','S','L','XL','XXL'],
-            slug: "women_t_logo_long_sleeve_scoop_neck_tee",
+            slug: "woman_t_logo_long_sleeve_scoop_neck_tee",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's T Logo Long Sleeve Scoop Neck Tee",
-            gender: 'women'
+            title: "Woman's T Logo Long Sleeve Scoop Neck Tee",
+            gender: 'woman'
         },
         {
-            description: "Designed for style and comfort, the Women's Small Wordmark Short Sleeve V-Neck Tee features a tonal 3D silicone-printed wordmark on the left chest. Made of 100% Peruvian cotton.",
+            description: "Designed for style and comfort, the Woman's Small Wordmark Short Sleeve V-Neck Tee features a tonal 3D silicone-printed wordmark on the left chest. Made of 100% Peruvian cotton.",
             images: [
                 '8765120-00-A_0_2000.jpg',
                 '8765120-00-A_1.jpg',
@@ -598,14 +598,14 @@ export const initialData: SeedData = {
             inStock: 18,
             price: 35,
             sizes: ['XS','S','M','L','XL','XXL'],
-            slug: "women_small_wordmark_short_sleeve_v-neck_tee",
+            slug: "woman_small_wordmark_short_sleeve_v-neck_tee",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's Small Wordmark Short Sleeve V-Neck Tee",
-            gender: 'women'
+            title: "Woman's Small Wordmark Short Sleeve V-Neck Tee",
+            gender: 'woman'
         },
         {
-            description: "Designed for style and comfort, the Women's Large Wordmark Short Sleeve Crew Neck Tee features a tonal 3D silicone-printed wordmark across the chest. Made of 100% Peruvian pima cotton.",
+            description: "Designed for style and comfort, the Woman's Large Wordmark Short Sleeve Crew Neck Tee features a tonal 3D silicone-printed wordmark across the chest. Made of 100% Peruvian pima cotton.",
             images: [
                 '8765115-00-A_0_2000.jpg',
                 '8765115-00-A_1.jpg',
@@ -613,11 +613,11 @@ export const initialData: SeedData = {
             inStock: 5,
             price: 35,
             sizes: ['XL','XXL'],
-            slug: "women_large_wordmark_short_sleeve_crew_neck_tee",
+            slug: "woman_large_wordmark_short_sleeve_crew_neck_tee",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's Large Wordmark Short Sleeve Crew Neck Tee",
-            gender: 'women'
+            title: "Woman's Large Wordmark Short Sleeve Crew Neck Tee",
+            gender: 'woman'
         },
         {
             description: "Designed to celebrate Tesla's incredible performance mode, the Plaid Mode Tee features great fit, comfort and style. Made from 100% cotton, it's the next best thing to riding shotgun at the Nürburgring.",
@@ -628,11 +628,11 @@ export const initialData: SeedData = {
             inStock: 16,
             price: 35,
             sizes: ['S','M'],
-            slug: "women_plaid_mode_tee",
+            slug: "woman_plaid_mode_tee",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's Plaid Mode Tee",
-            gender: 'women'
+            title: "Woman's Plaid Mode Tee",
+            gender: 'woman'
         },
         {
             description: "Inspired by our popular home battery, the Tesla Powerwall Tee is made from 100% cotton and features the phrase 'Pure Energy' under our signature logo in the back. Designed for fit, comfort and style, the exclusive tee promotes sustainable energy in any",
@@ -643,14 +643,14 @@ export const initialData: SeedData = {
             inStock: 10,
             price: 130,
             sizes: ['XS','S','M','L','XL','XXL'],
-            slug: "women_powerwall_tee",
+            slug: "woman_powerwall_tee",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women’s Powerwall Tee",
-            gender: 'women'
+            title: "Woman’s Powerwall Tee",
+            gender: 'woman'
         },
         {
-            description: "Fully customized and uniquely styled, the Women's Corp Jacket features a silicone-printed 'T' logo on the left chest and prominent Tesla wordmark across the back.",
+            description: "Fully customized and uniquely styled, the Woman's Corp Jacket features a silicone-printed 'T' logo on the left chest and prominent Tesla wordmark across the back.",
             images: [
                 '5645680-00-A_0_2000.jpg',
                 '5645680-00-A_3.jpg',
@@ -658,14 +658,14 @@ export const initialData: SeedData = {
             inStock: 3,
             price: 90,
             sizes: ['M','L','XL','XXL'],
-            slug: "women_corp_jacket",
+            slug: "woman_corp_jacket",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's Corp Jacket",
-            gender: 'women'
+            title: "Woman's Corp Jacket",
+            gender: 'woman'
         },
         {
-            description: "Introducing the Tesla Raven Collection. The Women's Raven Joggers have a premium, relaxed silhouette made from a sustainable bamboo cotton blend. The joggers feature a subtle thermoplastic polyurethane Tesla wordmark and T logo and a french terry interior for a cozy look and feel in every season. Pair them with your Raven Slouchy Crew Sweatshirt, Raven Lightweight Zip Up Jacket or other favorite on the go fit. Made from 70% bamboo and 30% cotton.",
+            description: "Introducing the Tesla Raven Collection. The Woman's Raven Joggers have a premium, relaxed silhouette made from a sustainable bamboo cotton blend. The joggers feature a subtle thermoplastic polyurethane Tesla wordmark and T logo and a french terry interior for a cozy look and feel in every season. Pair them with your Raven Slouchy Crew Sweatshirt, Raven Lightweight Zip Up Jacket or other favorite on the go fit. Made from 70% bamboo and 30% cotton.",
             images: [
                 '1740270-00-A_0_2000.jpg',
                 '1740270-00-A_1.jpg',
@@ -673,11 +673,11 @@ export const initialData: SeedData = {
             inStock: 162,
             price: 100,
             sizes: ['XS','S','M','L','XL','XXL'],
-            slug: "women_raven_joggers",
+            slug: "woman_raven_joggers",
             type: 'shirts',
             tags: ['shirt'],
-            title: "Women's Raven Joggers",
-            gender: 'women'
+            title: "Woman's Raven Joggers",
+            gender: 'woman'
         },
         {
             description: "Designed for fit, comfort and style, the Kids Cybertruck Graffiti Long Sleeve Tee features a water-based Cybertruck graffiti wordmark across the chest, a Tesla wordmark down the left arm and our signature T logo on the back collar. Made from 50% cotton and 50% polyester.",

@@ -26,7 +26,7 @@ const productSchema = new Schema({
     gender:{
         type: String,
         enum:{
-            values: ['men','women','kid','unisex'],
+            values: ['men','woman','kid','unisex'],
             message: '{VALUE} no es una categoria permitida'
         }
     }

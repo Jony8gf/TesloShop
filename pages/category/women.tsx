@@ -8,7 +8,7 @@ import { useProducts } from '../../hooks'
 
 const WomenPage: NextPage = () => {
  
-  const {products, isError, isLoading} =  useProducts('/products?gender=women');
+  const {products, isError, isLoading} =  useProducts('/products?gender=woman');
 
   if (isError) return <div>failed to load</div>
   if (!products) return <FullScreenLoading />

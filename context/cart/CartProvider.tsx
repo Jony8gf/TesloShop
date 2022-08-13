@@ -6,6 +6,7 @@ import { CartContext, cartReducer } from './';
 import Cookie from 'js-cookie';
 import Cookies from 'js-cookie';
 import { tesloApi } from '../../api';
+import axios, { Axios, AxiosError } from 'axios';
 
 export interface CartState{
     isLoaded: boolean;
@@ -139,7 +140,7 @@ export const CartProvider:FC<Props> = ({children}) => {
         dispatch({type: '[Cart] - Update Address',payload: address});
     }
 
-    const createOrder = async () => {
+    const createOrder = async ():Promise<{hasError: boolean; message: string;}> => {
 
 
         if(!state.shippingAddress){
@@ -165,9 +166,26 @@ export const CartProvider:FC<Props> = ({children}) => {
 
             console.log(data);
 
+            dispatch({type: '[Cart] - Order Complete'});
 
-        }catch(error){
-            console.log(error)
+            return {
+                hasError: false,
+                message: data._id!
+            }
+
+
+        }   catch (err) {
+            if (axios.isAxiosError(err)) {
+                const error = err as AxiosError
+                return {
+                    hasError: true,
+                    message: error.message
+                };
+            }
+            return {
+                hasError: true,
+                message: "Error no controlado. Consulte con el administrador.",
+            };
         }
 
     }

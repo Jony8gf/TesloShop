@@ -1,8 +1,8 @@
-import { Typography, Grid, Card, CardContent, Divider, Box, Button, Link } from '@mui/material'
+import { Typography, Grid, Card, CardContent, Divider, Box, Button, Link, Chip } from '@mui/material'
 import Cookies from 'js-cookie'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CartList, CartOrderSummary } from '../../components/cart'
 import { ShopLayout } from '../../components/layout'
 import { CartContext } from '../../context'
@@ -14,18 +14,27 @@ const SummaryPage = () => {
     const {numberOfItems, shippingAddress, createOrder} = useContext(CartContext)
     const router = useRouter();
 
+    const [isPosting, setIsPosting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
     useEffect(() => {
       if(!Cookies.get('firstName')){
         router.push('/checkout/address')
       }
     }, [router])
 
+    const onCreateOrder = async () => {
+        setIsPosting(true);
+        const {hasError, message} = await createOrder(); 
 
-    const onCreateOrder = () => {
-        createOrder();
+        if(hasError){
+            setErrorMessage(message);
+            setIsPosting(false);
+            return
+        }
+
+        router.replace(`/orders/${message}`);
     }
-    
-
 
     if(!shippingAddress){
         return <></>;
@@ -78,13 +87,21 @@ const SummaryPage = () => {
                         {/* Orden Summary */}
                         <CartOrderSummary />
                         
-                        <Box sx={{mt:3}}>
+                        <Box sx={{mt:3}} display='flex' flexDirection='column'>
                             <Button 
                                 color='secondary' 
                                 className="circular-btn" 
                                 fullWidth
                                 onClick={onCreateOrder}
+                                disabled={isPosting}
                             >Checkout</Button>
+
+                            <Chip 
+                                color='error'
+                                label={errorMessage}
+                                sx={{display: errorMessage ? 'flex' : 'none', marginTop: 2}}
+                            />
+                        
                         </Box>
 
                     </CardContent>

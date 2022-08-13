@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { GetServerSideProps, NextPage } from 'next';
 import { ShopLayout } from '../../components/layout';
 import { Box, Button, FormControl, Grid, MenuItem, TextField, Typography } from '@mui/material';
-import { jwt } from '../../utils';
 import { countries } from '../../utils';
 import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
