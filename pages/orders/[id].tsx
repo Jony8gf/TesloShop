@@ -8,6 +8,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { getSession } from 'next-auth/react';
 import { dbOrders } from '../../database';
 import { IOrder } from '../../interfaces';
+import { countries } from '../../utils'
 
 interface Props{
     order: IOrder;
@@ -15,78 +16,76 @@ interface Props{
 
 const OrderPage: NextPage<Props> = ({order}) => {
 
-    console.log(order)
-
     return (
         <ShopLayout title={"Resumen de la orden: " + order._id} pageDescription={"Resumen de la orden de compra"}>
             <Typography variant="h1" component='h1'>Orden: {order._id}</Typography>
 
-            {/* <Chip
-                sx={{ my: 2 }}
-                label="Pendiente de pago"
-                variant='outlined'
-                color='error'
-                icon={<CreditCardOffOutlined />}
-            /> */}
+            {
+                order.isPaid ? (
+                    <Chip
+                        sx={{ my: 2 }}
+                        label="Pagada"
+                        variant='outlined'
+                        color='success'
+                        icon={<CreditScoreOutlined />}
+                    />
+                ): (
+                    <Chip
+                        sx={{ my: 2 }}
+                        label="Pendiente de pago"
+                        variant='outlined'
+                        color='error'
+                        icon={<CreditCardOffOutlined />}
+                    />
+                )
 
-            
-
-            <Chip
-                sx={{ my: 2 }}
-                label="Pagada"
-                variant='outlined'
-                color='success'
-                icon={<CreditScoreOutlined />}
-            />
+            }
             
             <Grid container>
                 <Grid item xs={12} sm={7}>
-                    <CartList />
+                    <CartList products={order.orderItems}/>
                 </Grid>
                 <Grid item xs={12} sm={5}>
                     <Card className="summary-card">
                         <CardContent>
-                            <Typography variant='h2'>Resumen (3 productis)</Typography>
+                            <Typography variant='h2'>Resumen ({order.numberOfItems} {order.numberOfItems > 1 ? 'Productos' : 'Producto'})</Typography>
                             <Divider sx={{ my: 1 }} />
-
-                            <Box display='flex' justifyContent='end'>
-                                <NextLink href='/checkout/address' passHref >
-                                    <Link underline='always'>
-                                        Editar
-                                    </Link>
-                                </NextLink>
-                            </Box>
 
                             <Typography variant='subtitle1'>Dirección de entrega</Typography>
-                            <Typography>Jonathan Gonzalez</Typography>
-                            <Typography>332 Calle mayor</Typography>
-                            <Typography>catro Urdiales, 39700</Typography>
-                            <Typography>España</Typography>
-                            <Typography>+34 666 666 666</Typography>
+                            <Typography>{order.shippingAddress?.firstName}</Typography>
+                            <Typography>{order.shippingAddress?.lastName}</Typography>
+                            <Typography>{order.shippingAddress?.address} {order.shippingAddress?.address2}</Typography>
+                            <Typography>{order.shippingAddress?.zip} - {order.shippingAddress?.city}</Typography>
+                            <Typography>{countries.countries.find(c => c.code === order.shippingAddress?.country)?.name}</Typography>
+                            <Typography>{order.shippingAddress?.phone}</Typography>
 
                             <Divider sx={{ my: 1 }} />
 
-                            <Box display='flex' justifyContent='end'>
-                                <NextLink href='/cart' passHref >
-                                    <Link underline='always'>
-                                        Editar
-                                    </Link>
-                                </NextLink>
-                            </Box>
-
                             {/* Orden Summary */}
-                            <CartOrderSummary />
+                            <CartOrderSummary orderValues={{
+                                numberOfItems: order.numberOfItems,
+                                subtotal: order.subtotal,
+                                total: order.total,
+                                taxRate: order.taxRate,
+                            }} />
 
-                            <Box sx={{ mt: 3 }}>
-                                {/* TODO */}
-                                <h1>PAGAR</h1>
-                                <Chip
-                                    sx={{ my: 2 }}
-                                    label="Pagada"
-                                    variant='outlined'
-                                    color='success'
-                                    icon={<CreditScoreOutlined />}
-                                />
+                            <Box sx={{ mt: 3 }} display="flex"  flexDirection="column">
+                                {/* TODO */}               
+
+                                {
+                                    order.isPaid ? (
+                                        <Chip
+                                            sx={{ my: 2 }}
+                                            label="Pagada"
+                                            variant='outlined'
+                                            color='success'
+                                            icon={<CreditScoreOutlined />}
+                                        />
+                                    ): (
+                                        <h1>PAGAR</h1>
+                                    )
+                                }
+
                             </Box>
 
                         </CardContent>
@@ -131,9 +130,6 @@ export const getServerSideProps: GetServerSideProps = async ({req, query}) => {
             }
         }
     }
-
-
-
 
     return {
         props: {
