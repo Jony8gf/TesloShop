@@ -11,9 +11,7 @@ export default function hadler(req: NextApiRequest, res: NextApiResponse<Data>) 
 
     switch (req.method) {
         case 'GET':
-            return getProducts(req, res)
-        // case 'POST':
-        //     return postEntry(req, res);
+            return getProducts(req, res);
         default:
             return res.status(400).json({ message: 'Endpoint No existe' })
     }

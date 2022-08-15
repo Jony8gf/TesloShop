@@ -20,9 +20,7 @@ export default async function handle (req: NextApiRequest, res: NextApiResponse<
     await User.deleteMany();
     await User.insertMany(seedDatabase.initialData.users)
 
-
     await db.disconnect();
-
 
     res.status(200).json({ message: 'Proceso realizado correctamente' })
 }
