@@ -26,7 +26,7 @@ export const Navbar = () => {
         <AppBar>
             <Toolbar>
                 <NextLink href='/' passHref>
-                    <Link display='flex' alignItems='center'>
+                    <Link display='flex' alignItems='center' style={{ textDecoration: 'none' }}>
                         <Typography variant='h6'>Teslo |</Typography>
                         <Typography sx={{ ml: 0.5 }}>Shop</Typography>
                     </Link>
@@ -36,19 +36,19 @@ export const Navbar = () => {
 
                 <Box sx={{display: isSearchVisible ? 'none' : {xs: 'none', sm:'block'}}}>
                     <NextLink href="/category/men">
-                        <Link>
+                        <Link style={{ textDecoration: 'none' }}>
                             <Button className={ asPath === '/category/men' ? 'checked-button' : 'inherit'}>Hombres:</Button>
                         </Link>
                     </NextLink>
 
                     <NextLink href="/category/women">
-                        <Link>
+                        <Link style={{ textDecoration: 'none' }}>
                             <Button className={ asPath === '/category/women' ? 'checked-button' : 'inherit'}>Mujeres:</Button>
                         </Link>
                     </NextLink>
 
                     <NextLink href="/category/kid">
-                        <Link>
+                        <Link style={{ textDecoration: 'none' }}>
                             <Button className={ asPath === '/category/kid' ? 'checked-button' : 'no-checked-button'}>Niños:</Button>
                         </Link>
                     </NextLink>

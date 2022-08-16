@@ -32,14 +32,17 @@ const OrderPage: NextPage<Props> = ({ order }) => {
 
     const router = useRouter();
     const [isPaying, setIsPaying] = useState(false);
+    const [errorPay, setErrorPay] = useState(false);
 
     const onOrderCompleted = async (details: OrderResponseBody) => {
 
         if (details.status !== 'COMPLETED') {
-            return alert('No hay pago en paypal');
+            setErrorPay(true);
+            return null;
         }
 
         setIsPaying(true);
+        setErrorPay(false);
 
         try {
 
@@ -51,16 +54,19 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             router.reload();
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             setIsPaying(false);
-            alert('Error');
+            setErrorPay(true);
         }
 
     }
 
     return (
         <ShopLayout title={"Resumen de la orden: " + order._id} pageDescription={"Resumen de la orden de compra"}>
-            <Typography variant="h1" component='h1'>Orden: {order._id}</Typography>
+
+            <Box sx={{ mt: 3, mx: -2 }} display="flex" flexDirection="column">
+                <Typography variant="h1" component='h1'>Orden: {order._id}</Typography>                            
+            </Box>
 
             {
                 order.isPaid ? (
@@ -81,7 +87,7 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                     />
                 )
 
-            }
+            }    
 
             <Grid container>
                 <Grid item xs={12} sm={7}>
@@ -112,7 +118,6 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                             }} />
 
                             <Box sx={{ mt: 3 }} display="flex" flexDirection="column">
-                                {/* TODO */}
 
                                 <Box display="flex"
                                     justifyContent="center"
@@ -155,6 +160,15 @@ const OrderPage: NextPage<Props> = ({ order }) => {
                                         )
                                     }
                                 </Box>
+
+                                { 
+                                    errorPay &&
+                                    
+                                        <Chip 
+                                            color="error"
+                                            label="Ha ocurrido un error en el intento de pago." 
+                                        />
+                                } 
 
                             </Box>
 

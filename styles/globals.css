@@ -26,6 +26,7 @@
 
 .circular-btn:hover {
   background-color: #274494 !important;
+  color: #fff;
 }
 
 
@@ -41,6 +42,12 @@
 
 .talla-no-elegida{
   margin: 0;
+}
+
+.talla-elegida:hover{
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.274);
+  color: white;
 }
 
 .checked-button{

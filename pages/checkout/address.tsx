@@ -26,7 +26,7 @@ const getAddressFromCookies = (): FormData => {
         address2: Cookies.get("address2") || '',
         zip: Cookies.get("zip") || '',
         city: Cookies.get("city") || '',
-        country: Cookies.get("country") || '',
+        country: Cookies.get("country") || countries.countries[0].code,
         phone: Cookies.get("phone") || '',
     }
 }
@@ -45,7 +45,7 @@ const AddressPage = () => {
             address2: '',
             zip: '',
             city: '',
-            country: ' ',
+            country: '',
             phone: '',
         }
     });
