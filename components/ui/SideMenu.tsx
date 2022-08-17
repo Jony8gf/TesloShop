@@ -1,5 +1,5 @@
 import { Box, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
-import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, Cookie, EscalatorWarningOutlined, FemaleOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
+import { AccountCircleOutlined, AdminPanelSettings, CategoryOutlined, ConfirmationNumberOutlined, Cookie, DashboardOutlined, EscalatorWarningOutlined, FemaleOutlined, LoginOutlined, MaleOutlined, SearchOutlined, VpnKeyOutlined } from "@mui/icons-material"
 import { AuthContext, UIContext } from "../../context"
 import { useContext, useState } from "react"
 import { useRouter } from "next/router"
@@ -119,7 +119,9 @@ export const SideMenu = () => {
                                     <ListItemIcon>
                                         <VpnKeyOutlined />
                                     </ListItemIcon>
-                                    <ListItemText primary={'Ingresar'} onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)} />
+                                    <ListItemText primary={'Ingresar'} 
+                                        onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)}
+                                    />
                                 </ListItem>
                             )
                             :
@@ -133,14 +135,18 @@ export const SideMenu = () => {
                             )
                     }
 
-                    {/* Admin */}
                     <Divider />
 
                     {
                         user?.role === 'admin' && (
                             <>
                                 <ListSubheader>Admin Panel</ListSubheader>
-
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <DashboardOutlined />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'Dashboard'}  onClick={() => navigateTo(`/admin`)}/>
+                                </ListItem>
                                 <ListItem button>
                                     <ListItemIcon>
                                         <CategoryOutlined />
