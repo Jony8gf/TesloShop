@@ -6,6 +6,9 @@ import { SummaryTile } from '../../components/admin';
 import { AdminLayout } from '../../components/layout';
 import { FullScreenLoading } from '../../components/ui';
 import { DashboardSummaryResponse } from '../../interfaces';
+import { GetServerSideProps } from 'next';
+import { getToken } from 'next-auth/jwt';
+import { useRouter } from 'next/router';
 
 const DashboardPage = () => {
 
@@ -47,7 +50,7 @@ const DashboardPage = () => {
     const notPaidOrders = data!.numberOfOrders - data!.paidOrders;
 
   return (
-    <AdminLayout title={'Dashboard'} subtitle={'Estadisticas Generales'} icon={<DashboardOutlined/>}>
+    <AdminLayout title={'Dashboard'} subtitle={'Estadisticas Generales'} icon={<DashboardOutlined sx={{marginRight: 2}}/>}>
 
         <Grid container spacing={2}>
 
@@ -64,6 +67,36 @@ const DashboardPage = () => {
 
     </AdminLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+
+    const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+    if ( !session ) {
+        return {
+            redirect: {
+                destination: '/auth/login',
+                permanent: false
+            }
+        }
+    }
+
+    const validRoles = ['admin'];
+    if(!validRoles.includes(session.user.role)){
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+            
+        }
+    }
 }
 
 export default DashboardPage;

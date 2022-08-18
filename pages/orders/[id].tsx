@@ -1,5 +1,5 @@
 import { CreditCardOffOutlined, CreditScoreOutlined } from '@mui/icons-material';
-import { Typography, Grid, Card, CardContent, Divider, Box, Button, Link, Chip, CircularProgress } from '@mui/material';
+import { Typography, Grid, Card, CardContent, Divider, Box, Chip, CircularProgress } from '@mui/material';
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import React, { useState } from 'react';
 import { CartList, CartOrderSummary } from '../../components/cart';
@@ -11,7 +11,6 @@ import { IOrder } from '../../interfaces';
 import { countries } from '../../utils'
 import { tesloApi } from '../../api';
 import { useRouter } from 'next/router';
-import { display } from '@mui/system';
 
 
 export type OrderResponseBody = {
@@ -54,7 +53,6 @@ const OrderPage: NextPage<Props> = ({ order }) => {
             router.reload();
 
         } catch (error) {
-            // console.log(error);
             setIsPaying(false);
             setErrorPay(true);
         }

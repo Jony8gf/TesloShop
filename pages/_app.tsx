@@ -7,6 +7,7 @@ import { CssBaseline } from '@mui/material';
 import { SWRConfig } from 'swr';
 import { AuthProvider, CartProvider, UiProvider } from '../context';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
 import { env } from 'process';
 
 function MyApp({ Component, pageProps }: AppProps) {

@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getToken } from 'next-auth/jwt';
 import { db } from '../../../database';
 import { Order, Product, User } from '../../../models';
 

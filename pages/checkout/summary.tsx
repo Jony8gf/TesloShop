@@ -1,5 +1,7 @@
 import { Typography, Grid, Card, CardContent, Divider, Box, Button, Link, Chip } from '@mui/material'
 import Cookies from 'js-cookie'
+import { GetServerSideProps } from 'next'
+import { getToken } from 'next-auth/jwt'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useContext, useEffect, useState } from 'react'
@@ -111,6 +113,26 @@ const SummaryPage = () => {
 
     </ShopLayout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+
+    const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+    if ( !session ) {
+        return {
+            redirect: {
+                destination: '/auth/login',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+            
+        }
+    }
 }
 
 export default SummaryPage

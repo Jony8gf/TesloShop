@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { CartContext } from '../../context';
+import { getToken } from 'next-auth/jwt';
+import { GetServerSideProps } from 'next';
 
 type FormData = {
     firstName: string;
@@ -295,6 +297,26 @@ const AddressPage = () => {
 //         }
 //     }
 // }
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+
+    const session: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+    if ( !session ) {
+        return {
+            redirect: {
+                destination: '/auth/login',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+            
+        }
+    }
+}
 
 
 
