@@ -2,7 +2,7 @@ import { PeopleOutline } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import { AdminLayout } from '../../components/layout'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
-import { Grid, MenuItem, Select } from '@mui/material'
+import { Chip, Grid, MenuItem, Select } from '@mui/material'
 import useSWR from 'swr'
 import { FullScreenLoading } from '../../components/ui'
 import { IUser } from '../../interfaces'
@@ -13,7 +13,8 @@ import { getToken } from 'next-auth/jwt'
 const UsersPage = () => {
 
     const { data, error } = useSWR<IUser[]>('/api/admin/users');
-    const [ users, setUsers ] = useState<IUser[]>([])
+    const [ users, setUsers ] = useState<IUser[]>([]);
+    const [ err, setErr ] = useState(false);
 
     useEffect(() => {
       if(data){
@@ -32,13 +33,13 @@ const UsersPage = () => {
         }));
 
         setUsers(updateUsers);
+        setErr(false);
 
         try{
             await tesloApi.put('/admin/users', {userId, role: newRole});
         }catch(error){
-            // consol
-            //Todo Chip
             setUsers(previosUsers);
+            setErr(true);
         }
     }
 
@@ -85,6 +86,16 @@ const UsersPage = () => {
                 />
             </Grid>
         </Grid>
+        {
+            err ?
+            (
+                <Chip 
+                    color="error"
+                    label="No se ha podido guardar el usuario" 
+                    sx={{position: 'absolute', zIndex: 99, top: '10px', left: '10px'}}
+                />
+            ) : (<></>)
+        }
     </AdminLayout>
   )
 }

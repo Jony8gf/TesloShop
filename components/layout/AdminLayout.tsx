@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import React, { FC } from 'react'
 import { AdminNavbar } from '../admin';
 import { Navbar, SideMenu } from '../ui';
+import FooterPage from '../ui/Footer';
 
 interface Props {
     children?: React.ReactNode | undefined;
@@ -22,6 +23,7 @@ export const AdminLayout:FC<Props>= ({children, title, subtitle, icon}) => {
         <main style={{
             margin: '80px auto',
             maxWidth: '1440px',
+            minHeight: '642px',
             padding: '0px 30px'
         }}>
             <Box display='flex' flexDirection='column'>
@@ -32,6 +34,10 @@ export const AdminLayout:FC<Props>= ({children, title, subtitle, icon}) => {
                 {children}
             </Box>
         </main>
+
+        <footer className='footer'>
+            <FooterPage />
+        </footer>
 
     </>
   )

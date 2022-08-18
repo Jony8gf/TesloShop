@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import Head from 'next/head'
 import React, { FC } from 'react'
+import FooterPage from '../ui/Footer';
 
 
 interface Props{
@@ -20,6 +21,10 @@ export const AuthLayout:FC<Props> = ({children, title}) => {
                 {children}
             </Box>
         </main>
+
+        <footer>
+            <FooterPage />
+        </footer>
 
     </>
   )
