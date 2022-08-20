@@ -7,6 +7,9 @@ import { dbProducts } from '../../../database';
 import { Box, Button, capitalize, Card, CardActions, CardMedia, Checkbox, Chip, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, ListItem, Paper, Radio, RadioGroup, TextField } from '@mui/material';
 import { getToken } from 'next-auth/jwt';
 import { Controller, useForm } from 'react-hook-form';
+import { tesloApi } from '../../../api';
+import { Product } from '../../../models';
+import { useRouter } from 'next/router';
 
 
 const validTypes = ['shirts', 'pants', 'hoodies', 'hats']
@@ -34,6 +37,10 @@ interface Props {
 const ProductAdminPage: FC<Props> = ({ product }) => {
 
     const [newTagValue, setNewTagValue] = useState('');
+    const [isImagesSelected, setIsImagesSelected] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+
+    const router = useRouter();
 
     const { register, handleSubmit, control, formState: { errors }, getValues, setValue, watch } = useForm<FormData>({
         defaultValues: product
@@ -55,7 +62,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
 
     }, [watch, setValue]);
 
-    const onchangeSize = (size: string) => {
+    const onChangeSize = (size: string) => {
         const currentSizes = getValues('sizes');
         if(currentSizes.includes(size)){
             return setValue('sizes', currentSizes.filter(s => s !== size), {shouldValidate: true} )
@@ -78,8 +85,36 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
         setValue('tags', [...updateTags], {shouldValidate: true})
     }
 
-    const onSubmitForm = (formaData: FormData) => {
-        console.log(formaData);
+    const onSubmitForm = async(form: FormData) => {
+
+        setIsImagesSelected(false); 
+
+        if(form.images.length < 2) return setIsImagesSelected(true);
+
+        setIsSaving(true);
+
+        try{
+                const { data } = await tesloApi({
+                    url: '/admin/products',
+                    method: form._id ? 'PUT': 'POST',  // si tenemos un _id, entonces actualizar, si no crear
+                    data: form
+                });
+    
+                console.log({data});
+
+            if(!form._id){
+                setIsSaving(false);
+                router.replace(`/admin/products/${form.slug}`);
+            }else{
+                setIsSaving(false);
+            }
+
+        }catch(error){
+            console.log(error);
+            setIsSaving(false);
+            setIsImagesSelected(false); 
+        }
+
     }
 
     return (
@@ -95,6 +130,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                         startIcon={<SaveOutlined />}
                         sx={{ width: '150px' }}
                         type="submit"
+                        disabled={isSaving}
                     >
                         Guardar
                     </Button>
@@ -217,7 +253,7 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                                         key={size} 
                                         control={<Checkbox checked={ getValues('sizes').includes(size)} />} 
                                         label={size}
-                                        onChange={ () => onchangeSize(size)}
+                                        onChange={ () => onChangeSize(size)}
                                     />
                                 ))
                             }
@@ -290,11 +326,13 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                                 Cargar imagen
                             </Button>
 
-                            <Chip
-                                label="Es necesario al 2 imagenes"
-                                color='error'
-                                variant='outlined'
-                            />
+                            {isImagesSelected ? 
+                                <Chip
+                                    label="Es necesario al 2 imagenes"
+                                    color='error'
+                                    variant='outlined'
+                                /> : <></>}
+                           
 
                             <Grid container spacing={2}>
                                 {
@@ -353,7 +391,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
 
     const { slug = '' } = query;
 
-    const product = await dbProducts.getProductBySlug(slug.toString());
+    let product: IProduct | null;
+
+    if(slug === 'new'){
+        //Crear prodcuto
+        const tempProduct = JSON.parse( JSON.stringify( new Product() ) );
+        delete tempProduct._id;
+        tempProduct.images = ['img1.jpg', 'img2.jpg'];
+        product = tempProduct;
+    } else{
+        product = await dbProducts.getProductBySlug(slug.toString());
+    }
+
+   
 
     if (!product) {
         return {

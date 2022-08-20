@@ -16,7 +16,9 @@ export const AuthLayout:FC<Props> = ({children, title}) => {
             <title>{title}</title>
         </Head>
 
-        <main>
+        <main style={{
+            minHeight: '820px'
+        }}>
             <Box display='flex' justifyContent='center' alignItems='center' height="calc(100vh - 200px)">
                 {children}
             </Box>
