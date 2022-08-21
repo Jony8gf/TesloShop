@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { AdminLayout } from '../../../components/layout';
 import { IProduct } from '../../../interfaces';
 import { DriveFileRenameOutline, SaveOutlined, UploadOutlined } from '@mui/icons-material';
 import { dbProducts } from '../../../database';
-import { Box, Button, capitalize, Card, CardActions, CardMedia, Checkbox, Chip, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, ListItem, Paper, Radio, RadioGroup, TextField } from '@mui/material';
+import { Box, Button, capitalize, Card, CardActions, CardMedia, Checkbox, Chip, Divider, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Input, ListItem, Paper, Radio, RadioGroup, TextField } from '@mui/material';
 import { getToken } from 'next-auth/jwt';
 import { Controller, useForm } from 'react-hook-form';
 import { tesloApi } from '../../../api';
@@ -39,6 +39,8 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
     const [newTagValue, setNewTagValue] = useState('');
     const [isImagesSelected, setIsImagesSelected] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const router = useRouter();
 
@@ -83,6 +85,29 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
     const onDeleteTag = (tag: string) => {
         const updateTags = getValues('tags').filter( t => t !== tag);
         setValue('tags', [...updateTags], {shouldValidate: true})
+    }
+
+    const onDeleteImage = (img: string) => {
+        setValue('images', getValues('images').filter( i => i !== img), {shouldValidate: true});
+    }
+
+    const onFilesSelected = async ({target}: ChangeEvent<HTMLInputElement>) =>{
+        if(!target.files || target.files.length === 0) return
+        // console.log(target.files);
+        
+        try{
+            for(const file of target.files){
+                const formData = new FormData();
+                // console.log(file);
+                formData.append('file', file);
+                const { data } = await tesloApi.post<{message:string}>('admin/upload', formData);
+                // console.log(data.message);
+                setValue('images', [...getValues('images'), data.message], {shouldValidate: true});
+            }
+        }catch(error){
+            console.log(error)
+        }
+
     }
 
     const onSubmitForm = async(form: FormData) => {
@@ -322,9 +347,18 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
                                 fullWidth
                                 startIcon={<UploadOutlined />}
                                 sx={{ mb: 3 }}
+                                onClick={() => fileInputRef.current?.click()}
                             >
                                 Cargar imagen
                             </Button>
+                            <input 
+                                ref={ fileInputRef }
+                                type="file"
+                                multiple
+                                accept='image/png, image/gif, image/jpg, image/jpeg'
+                                style={{ display: 'none'}}
+                                onChange={onFilesSelected}
+                            />
 
                             {isImagesSelected ? 
                                 <Chip
@@ -336,17 +370,17 @@ const ProductAdminPage: FC<Props> = ({ product }) => {
 
                             <Grid container spacing={2}>
                                 {
-                                    product.images.map(img => (
+                                    getValues('images').map(img => (
                                         <Grid item xs={4} sm={3} key={img}>
                                             <Card>
                                                 <CardMedia
                                                     component='img'
                                                     className='fadeIn'
-                                                    image={`/products/${img}`}
+                                                    image={ img }
                                                     alt={img}
                                                 />
                                                 <CardActions>
-                                                    <Button fullWidth color="error">
+                                                    <Button fullWidth color="error" onClick={() => onDeleteImage(img)}>
                                                         Borrar
                                                     </Button>
                                                 </CardActions>
@@ -397,7 +431,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, query }) => 
         //Crear prodcuto
         const tempProduct = JSON.parse( JSON.stringify( new Product() ) );
         delete tempProduct._id;
-        tempProduct.images = ['img1.jpg', 'img2.jpg'];
+        // tempProduct.images = ['img1.jpg', 'img2.jpg'];
         product = tempProduct;
     } else{
         product = await dbProducts.getProductBySlug(slug.toString());

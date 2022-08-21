@@ -31,6 +31,14 @@ const getProducts = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const products = await Product.find(condition)
                                     .select('title images price inStock slug')
                                     .lean()
-    await db.disconnect()
-    res.status(200).json(products);
+    await db.disconnect();
+
+    const updateProducts = products.map(product => {
+        product.images = product.images.map(image => {
+            return image.includes('http') ? image : `${process.env.HOST_NAME}products/${image}`
+        });
+        return product;
+    });
+
+    res.status(200).json(updateProducts);
 }

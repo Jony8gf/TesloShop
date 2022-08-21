@@ -20,7 +20,7 @@ const columns: GridColDef[] = [
                     <CardMedia 
                         component='img'
                         alt={row.title}
-                        image={`/products/${row.img}`}
+                        image={`${row.img}`}
                     />
                 </a>
             )
