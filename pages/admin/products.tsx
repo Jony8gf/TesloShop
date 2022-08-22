@@ -8,44 +8,87 @@ import useSWR from 'swr';
 import { FullScreenLoading } from '../../components/ui';
 import { getToken } from 'next-auth/jwt';
 import { GetServerSideProps } from 'next';
-import NextLink from 'next/link'
+import NextLink from 'next/link';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { tesloApi } from '../../api';
+import { useRouter } from 'next/router';
 
-const columns: GridColDef[] = [
-    {
-        field: 'img',
-        headerName: 'Foto',
-        renderCell: ({row} :GridValueGetterParams) => {
-            return (
-                <a href={`/product/${row.slug}`} target="_blank" rel='noreferrer'>
-                    <CardMedia 
-                        component='img'
-                        alt={row.title}
-                        image={`${row.img}`}
-                    />
-                </a>
-            )
-        }
-    },
-    {
-        field: 'title', 
-        headerName: 'Nombre del producto', 
-        width: 250,
-        renderCell: ({row} :GridValueGetterParams) => {
-            return (
-                <NextLink href={`/admin/products/${row.slug}`} passHref>
-                    <Link underline='always'>{row.title}</Link>
-                </NextLink>
-            )
-        }
-    },
-    {field: 'gender', headerName: 'Genero'},
-    {field: 'type', headerName: 'Tipo'},
-    {field: 'inStock', headerName: 'En Stock'},
-    {field: 'price', headerName: 'Precio'},
-    {field: 'sizes', headerName: 'Tallas', width: 250}
-];
 
 const ProductsPage = () => {
+
+    const router = useRouter();
+
+    const deleteProduct = async(slug: string) => {
+        try{
+            // const message = dbProducts.getDeleteProduct(slug);
+            const res = await tesloApi.delete('admin/products', { data: { slug } });
+            router.reload();
+        }catch(error){
+            console.log(error)
+        }
+    }
+    
+    const columns: GridColDef[] = [
+        {
+            field: 'img',
+            headerName: 'Foto',
+            renderCell: ({row} :GridValueGetterParams) => {
+                return (
+                    <a href={`/product/${row.slug}`} target="_blank" rel='noreferrer'>
+                        <CardMedia 
+                            component='img'
+                            alt={row.title}
+                            image={`${row.img}`}
+                        />
+                    </a>
+                )
+            }
+        },
+        {
+            field: 'title', 
+            headerName: 'Nombre del producto', 
+            width: 250,
+            renderCell: ({row} :GridValueGetterParams) => {
+                return (
+                    <NextLink href={`/admin/products/${row.slug}`} passHref>
+                        <Link underline='always'>{row.title}</Link>
+                    </NextLink>
+                )
+            }
+        },
+        {field: 'gender', headerName: 'Genero'},
+        {field: 'type', headerName: 'Tipo'},
+        {field: 'inStock', headerName: 'En Stock'},
+        {field: 'price', headerName: 'Precio'},
+        {field: 'sizes', headerName: 'Tallas', width: 250},
+        {
+            field: 'menu',
+            headerName: 'Acciones',
+            width: 250,
+            renderCell: ({row} :GridValueGetterParams) => {
+                return (
+                    <Box>
+                        
+                        <NextLink href={`/admin/products/${row.slug}`} passHref>
+                            <Button
+                                startIcon={<EditIcon />}
+                                color='success'
+                            />
+                        </NextLink>
+                        
+                        <Button
+                            startIcon={<DeleteIcon/>}
+                            color='error'
+                            onClick={() => deleteProduct(row.slug)}
+                        />
+
+                    </Box>
+                )
+            }
+        },
+    ];
+    
 
 
     const { data, error } = useSWR<IProduct[]>('/api/admin/products');

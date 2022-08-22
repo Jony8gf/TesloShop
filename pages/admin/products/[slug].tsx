@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 
 const validTypes = ['shirts', 'pants', 'hoodies', 'hats']
-const validGender = ['men', 'women', 'kid', 'unisex']
+const validGender = ['men', 'woman', 'kid', 'unisex']
 const validSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']
 
 interface FormData {
