@@ -91,7 +91,7 @@ const updateProduct = async(req: NextApiRequest, res: NextApiResponse<Data>) => 
         product.images.forEach( async(image) => {
             if(!images.includes(image)){
                 const [fileId, extension] = image.substring(image.lastIndexOf('/') + 1).split('.');
-                console.log(fileId +" - "+ extension);
+                // console.log(fileId +" - "+ extension);
                 await cloudinary.uploader.destroy(fileId);
             }
         });
@@ -163,7 +163,7 @@ const deleteProduct = async(req: NextApiRequest, res: NextApiResponse<Data>) => 
         productInDb.images.forEach( async(image) => {
             if(image.includes('http')){
                 const [fileId, extension] = image.substring(image.lastIndexOf('/') + 1).split('.');
-                console.log(fileId +" - "+ extension);
+                // console.log(fileId +" - "+ extension);
                 await cloudinary.uploader.destroy(fileId);
             }
         });
