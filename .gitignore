@@ -5,6 +5,8 @@ mongo/
 
 # Env
 .env
+.env.development
+.env.production
 
 # dependencies
 /node_modules
