@@ -8,6 +8,9 @@ mongo/
 .env.development
 .env.production
 
+#yarn
+.yarn.lock
+
 # dependencies
 /node_modules
 /.pnp
