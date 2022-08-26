@@ -73,7 +73,7 @@ const LoginPage = () => {
                 <Box sx={{ width: 350, padding: '10px 20px' }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography variant='h1' component='h1'>Iniciar Sesión</Typography>
+                            <Typography variant='h1' component='h1' sx={{ textAlign: 'center'}}>Iniciar Sesión</Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField 
