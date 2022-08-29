@@ -13,7 +13,7 @@ const HomePage: NextPage = () => {
   if (!products) return <FullScreenLoading />
 
   return (
-    <ShopLayout title={'TesloShop - Home'} pageDescription={'Encuentra los mejores de Teslo aquí'}>
+    <ShopLayout title={'Jony Shop - Home'} pageDescription={'Encuentra los mejores productos aquí en Jony Shop'}>
       
       <Typography variant='h1' component='h1'>Tienda</Typography>
       <Typography variant='h2' sx={{mb:1}}>Todos los productos</Typography>

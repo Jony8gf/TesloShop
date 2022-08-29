@@ -14,7 +14,7 @@ const MenPage: NextPage = () => {
   if (!products) return <FullScreenLoading />
   
   return (
-    <ShopLayout title={'TesloShop - Men'} pageDescription={'Encuentra los mejores de Teslo para hombres'}>
+    <ShopLayout title={'Jony Shop - Men'} pageDescription={'Encuentra los mejores productos para hombres'}>
       
       <Typography variant='h1' component='h1'>Hombres</Typography>
       <Typography variant='h2' sx={{mb:1}}>Todos los productos para hombres</Typography>

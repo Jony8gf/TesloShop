@@ -14,7 +14,7 @@ const KidPage: NextPage = () => {
   if (!products) return <FullScreenLoading />
 
   return (
-    <ShopLayout title={'TesloShop - Kids'} pageDescription={'Encuentra los mejores de Teslo para niños'}>
+    <ShopLayout title={'Jony Shop - Kids'} pageDescription={'Encuentra los mejores de productos para niños'}>
       
       <Typography variant='h1' component='h1'>Niños</Typography>
       <Typography variant='h2' sx={{mb:1}}>Todos los productos para niños</Typography>

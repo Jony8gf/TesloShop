@@ -7,7 +7,7 @@ const FooterPage = () => {
     <Box sx={{backgroundColor: 'black', height: 135 }} className='footer'>
         <Box display='flex' justifyContent='center'>
             <Typography variant="h6" align="center" color="white" sx={{marginTop: 2}}>
-            TesloShop  {new Date().getFullYear()}
+            Jony Shop  {new Date().getFullYear()}
             </Typography>
         </Box>       
         <Typography variant="subtitle1" align="center" color="white" component="p">       

@@ -17,7 +17,7 @@ interface Props{
 const SearchPage: NextPage<Props> = ({products, foundProducts, query}) => {
 
   return (
-    <ShopLayout title={'TesloShop - Search'} pageDescription={'Encuentra los mejores de Teslo aquí'}>
+    <ShopLayout title={'Jony Shop - Search'} pageDescription={'Encuentra los mejores aquí'}>
       
       <Typography variant='h1' component='h1'>Buscar producto</Typography>
 
